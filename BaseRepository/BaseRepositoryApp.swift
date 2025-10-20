@@ -2,16 +2,41 @@
 //  BaseRepositoryApp.swift
 //  BaseRepository
 //
-//  Created by Matthew on 17/10/25.
-//
 
 import SwiftUI
+import PostHog
 
 @main
 struct BaseRepositoryApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @Environment(\.scenePhase) private var scenePhase
+    
+    init() {
+        let config = PostHogConfig(
+            apiKey: Config.posthogApiKey,
+            host: Config.posthogHost
+        )
+        PostHogSDK.shared.setup(config)
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Text("Hello, World!")
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            switch newPhase {
+            case .active:
+                // App became active (foreground)
+                SessionManager.shared.startAppSession()
+            case .background:
+                // App went to background
+                SessionManager.shared.endAppSession()
+            case .inactive:
+                // App is transitioning (e.g., during interruptions)
+                break
+            @unknown default:
+                break
+            }
         }
     }
 }
