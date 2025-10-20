@@ -43,8 +43,8 @@
 	<string>This app uses tracking to provide personalized content and improve attribution for marketing campaigns.</string>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>a3ccu.app.link</string>
-		<string>a3ccu-alternate.app.link</string>
+		<string>YOUR_APP.app.link</string>
+		<string>YOUR_APP-alternate.app.link</string>
 	</array>
 	<key>branch_key</key>
 	<dict>
