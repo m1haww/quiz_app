@@ -17,6 +17,9 @@ struct BaseRepositoryApp: App {
             host: Config.posthogHost
         )
         PostHogSDK.shared.setup(config)
+        
+        let idfv = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+        PostHogSDK.shared.identify(idfv)
     }
     
     var body: some Scene {

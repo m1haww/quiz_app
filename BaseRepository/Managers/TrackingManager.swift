@@ -6,6 +6,7 @@
 
 import Foundation
 import AppTrackingTransparency
+import AdSupport
 import PostHog
 
 final class TrackingManager {
@@ -13,6 +14,7 @@ final class TrackingManager {
     private init() {}
     
     private let key = "trackingStatus"
+    private let zeroUUID = "00000000-0000-0000-0000-000000000000"
     
     var currentStatus: TrackingStatus {
         let raw = UserDefaults.standard.string(forKey: key) ?? "notDetermined"
@@ -44,6 +46,13 @@ final class TrackingManager {
                     "result": result.rawValue,
                     "dialog_shown": !wasAlreadyDetermined
                 ])
+                
+                if result == .authorized {
+                    let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+                    if idfa != self.zeroUUID {
+                        PostHogSDK.shared.identify(idfa)
+                    }
+                }
                 
                 UserDefaults.standard.set(result.rawValue, forKey: self.key)
             }
