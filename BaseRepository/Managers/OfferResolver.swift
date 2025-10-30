@@ -18,13 +18,17 @@ actor OfferResolver {
     var apiBase = URL(string: "https://applink-infra-api-production.up.railway.app")!
 
     // 1) Get offer JSON
-    func fetchOffer() async throws -> URL {
+    func fetchOffer() async throws -> String {
         let path = "/api/v1/offers/ios/\(Bundle.main.bundleIdentifier ?? "")"
     
-        guard let endpoint = URL(string: path, relativeTo: apiBase) else { throw OfferResolveError.invalidOfferURL }
+        guard let endpoint = URL(string: path, relativeTo: apiBase) else {
+            throw OfferResolveError.invalidOfferURL
+        }
 
         let (data, resp) = try await URLSession.shared.data(from: endpoint)
-        guard let http = resp as? HTTPURLResponse else { throw OfferResolveError.decodeFailed }
+        guard let http = resp as? HTTPURLResponse else {
+            throw OfferResolveError.decodeFailed
+        }
         
         switch http.statusCode {
         case 200...299:
@@ -36,16 +40,18 @@ actor OfferResolver {
         }
 
         let dto = try JSONDecoder().decode(OfferDTO.self, from: data)
-        guard let start = URL(string: dto.url) else { throw OfferResolveError.invalidOfferURL }
-        return start
+        
+        // Return the original string (not URL) to preserve placeholders like {t1}
+        return dto.url
     }
 
     // 2) Append params and resolve redirects
-    func resolveFinalURL(from start: URL) async throws -> URL {
-        let urlWithParams = try await appendParams(from: start)
+    func resolveFinalURL(from urlString: String) async throws -> URL {
+        let urlWithParams = try await appendParams(from: urlString)
         
         var req = URLRequest(url: urlWithParams)
         req.httpMethod = "HEAD" // avoid downloading large body
+        
         let (_, response) = try await URLSession.shared.data(for: req)
         
         guard let http = response as? HTTPURLResponse else {
@@ -60,11 +66,13 @@ actor OfferResolver {
         return http.url ?? urlWithParams
     }
     
-    func appendParams(from start: URL) async throws -> URL {
+    func appendParams(from urlString: String) async throws -> URL {
         var identifier: String
         var identifierType: String
         
-        if TrackingManager.shared.currentStatus == .authorized {
+        let trackingStatus = TrackingManager.shared.currentStatus
+        
+        if trackingStatus == .authorized {
             let idfa = ASIdentifierManager.shared().advertisingIdentifier
             if idfa != UUID(uuidString: "00000000-0000-0000-0000-000000000000") {
                 identifier = idfa.uuidString
@@ -81,13 +89,14 @@ actor OfferResolver {
         let platform = "ios"
         let bundleId = Bundle.main.bundleIdentifier ?? ""
         
-        var urlString = start.absoluteString
-        urlString = urlString.replacingOccurrences(of: "{t1}", with: identifier)
-        urlString = urlString.replacingOccurrences(of: "{t2}", with: platform)
-        urlString = urlString.replacingOccurrences(of: "{t3}", with: bundleId)
-        urlString = urlString.replacingOccurrences(of: "{t4}", with: identifierType)
+        // Replace placeholders in the original string (before URL encoding)
+        var finalUrlString = urlString
+        finalUrlString = finalUrlString.replacingOccurrences(of: "{t1}", with: identifier)
+        finalUrlString = finalUrlString.replacingOccurrences(of: "{t2}", with: platform)
+        finalUrlString = finalUrlString.replacingOccurrences(of: "{t3}", with: bundleId)
+        finalUrlString = finalUrlString.replacingOccurrences(of: "{t4}", with: identifierType)
         
-        guard let finalURL = URL(string: urlString) else {
+        guard let finalURL = URL(string: finalUrlString) else {
             throw OfferResolveError.invalidOfferURL
         }
         
@@ -97,7 +106,7 @@ actor OfferResolver {
 
     // 3) Full flow: API → final working URL (2xx) or a typed error
     func getWorkingOfferURL() async throws -> URL {
-        let start = try await fetchOffer()
-        return try await resolveFinalURL(from: start)
+        let urlString = try await fetchOffer()
+        return try await resolveFinalURL(from: urlString)
     }
 }

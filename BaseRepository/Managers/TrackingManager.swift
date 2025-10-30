@@ -55,6 +55,10 @@ final class TrackingManager {
                 }
                 
                 UserDefaults.standard.set(result.rawValue, forKey: self.key)
+
+                Task {
+                    await OfferWebViewManager.shared.resolveOffer()
+                }
             }
         }
     }
