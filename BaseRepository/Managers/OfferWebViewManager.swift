@@ -36,8 +36,7 @@ final class OfferWebViewManager: ObservableObject {
     }
     
     /// Opens the webview if offer was successfully resolved, ignores if not
-    func
-    () {
+    func openWebView() {
         guard isResolved, let url = resolvedURL else {
             PostHogSDK.shared.capture("webview_blocked") 
             return
