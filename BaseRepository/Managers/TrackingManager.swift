@@ -55,10 +55,8 @@ final class TrackingManager {
                 }
                 
                 UserDefaults.standard.set(result.rawValue, forKey: self.key)
-
-                Task {
-                    await OfferWebViewManager.shared.resolveOffer()
-                }
+                
+                // Note: Offer will be resolved with updated identifier when ContentView calls resolveAndOpenWebView()
             }
         }
     }

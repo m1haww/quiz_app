@@ -70,11 +70,9 @@ class WebViewController: UIViewController {
 // MARK: - WKNavigationDelegate
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("✅ WebView finished loading")
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print("❌ WebView failed: \(error.localizedDescription)")
     }
 }
 
