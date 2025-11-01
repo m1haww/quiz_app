@@ -18,7 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
 
-    // Call this from onboarding AFTER ATT prompt completes
+    // Called automatically by TrackingManager after ATT prompt completes
     static func completeFirstInit() {
         Branch.getInstance().initSession(launchOptions: LaunchStore.launchOptions) { params, error in
             print(params as? [String: AnyObject] ?? [:])

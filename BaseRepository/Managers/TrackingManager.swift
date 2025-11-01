@@ -56,7 +56,8 @@ final class TrackingManager {
                 
                 UserDefaults.standard.set(result.rawValue, forKey: self.key)
                 
-                // Note: Offer will be resolved with updated identifier when ContentView calls resolveAndOpenWebView()
+                // Complete Branch initialization now that ATT status is determined
+                AppDelegate.completeFirstInit()
             }
         }
     }
