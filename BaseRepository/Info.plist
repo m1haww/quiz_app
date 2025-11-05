@@ -2,77 +2,52 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchScreen</key>
-	<dict/>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<true/>
-		<key>UISceneConfigurations</key>
-		<dict/>
-	</dict>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UISupportedInterfaceOrientations~iphone</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>POSTHOG_API_KEY</key>
-	<string>YOUR_POSTHOG_API_KEY</string>
-	<key>POSTHOG_HOST</key>
-	<string>https://us.i.posthog.com</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This app uses tracking to provide personalized content and improve attribution for marketing campaigns.</string>
-	<key>branch_universal_link_domains</key>
-	<array>
-		<string>YOUR_APP.app.link</string>
-		<string>YOUR_APP-alternate.app.link</string>
-	</array>
-	<key>branch_key</key>
-	<dict>
-		<key>live</key>
-		<string>YOUR_BRANCH_KEY</string>
-	</dict>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.baserepository</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.baserepository</string>
 				<string>fbAPP-ID</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.baserepository</string>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>APP-ID</string>
 	<key>FacebookClientToken</key>
 	<string>CLIENT-TOKEN</string>
 	<key>FacebookDisplayName</key>
 	<string>APP-NAME</string>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This app uses tracking to provide personalized content and improve attribution for marketing campaigns.</string>
+	<key>POSTHOG_API_KEY</key>
+	<string>YOUR_POSTHOG_API_KEY</string>
+	<key>POSTHOG_HOST</key>
+	<string>https://us.i.posthog.com</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -103,6 +78,31 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>238da6jt44.skadnetwork</string>
 		</dict>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations~iphone</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>YOUR_BRANCH_KEY</string>
+	</dict>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>YOUR_APP.app.link</string>
+		<string>YOUR_APP-alternate.app.link</string>
 	</array>
 </dict>
 </plist>
