@@ -13,12 +13,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
         // FB SDK Init with App Events configuration
+        // Note: Auto-logging and advertiser tracking are configured in Info.plist
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        // Configure Facebook App Events for attribution
-        // Enable automatic event logging and advertiser tracking
-        AppEvents.shared.isAutoLogAppEventsEnabled = true
-        AppEvents.shared.isAdvertiserTrackingEnabled = true
         
         // Configure AEM (Aggregated Event Measurement) for iOS 14.5+ attribution
         // This is crucial for Facebook attribution to work properly
