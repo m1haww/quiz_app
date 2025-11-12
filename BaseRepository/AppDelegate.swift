@@ -3,12 +3,22 @@ import BranchSDK
 import FacebookCore
 import FacebookAEM
 
+final class LaunchStore {
+    static var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+}
+
 class AppDelegate: NSObject, UIApplicationDelegate {
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
         // FB SDK Init with App Events configuration
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Configure Facebook App Events for attribution
+        // Enable automatic event logging and advertiser tracking
+        AppEvents.shared.isAutoLogAppEventsEnabled = true
+        AppEvents.shared.isAdvertiserTrackingEnabled = true
         
         // Configure AEM (Aggregated Event Measurement) for iOS 14.5+ attribution
         // This is crucial for Facebook attribution to work properly
@@ -16,8 +26,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         // Activate App Events immediately on launch
         // This is critical for Facebook to receive install attribution
-        // Note: Auto-logging and advertiser tracking are now configured via Info.plist
-        // and handled automatically based on ATT status
         AppEvents.shared.activateApp()
         
         // Set up app lifecycle events for Facebook
@@ -34,40 +42,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             name: UIApplication.willResignActiveNotification,
             object: nil
         )
-        
-        Branch.getInstance().initSession(launchOptions: launchOptions) { params, error in
-            if let error = error {
-                print("Branch init error: \(error.localizedDescription)")
-                return
-            }
-            
-            print("Branch init params: \(params as? [String: AnyObject] ?? [:])")
-            
-            // Log install event to Facebook when Branch session initializes
-            // This is critical for Facebook attribution
-            if let params = params as? [String: AnyObject] {
-                // Check if this is a first install
-                if let isFirstSession = params["+is_first_session"] as? Bool, isFirstSession {
-                    // Log install event for Facebook attribution
-                    // This helps Facebook match installs even when SKAdNetwork data is delayed
-                    AppEvents.shared.logEvent(.completedRegistration)
-                }
-                
-                // Log custom events with Branch attribution data for better tracking
-                var eventParams: [AppEvents.ParameterName: Any] = [:]
-                
-                if let campaign = params["~campaign"] as? String {
-                    eventParams[.content] = campaign
-                }
-                if let channel = params["~channel"] as? String {
-                    eventParams[.contentType] = channel
-                }
-                
-                if !eventParams.isEmpty {
-                    AppEvents.shared.logEvent(.viewedContent, parameters: eventParams)
-                }
-            }
-        }
+
+        // IMPORTANT: Defer Branch initialization until AFTER ATT prompt
+        // This ensures IDFA is available for TikTok attribution
+        // Branch will be initialized in TrackingManager.requestPermission()
+        LaunchStore.launchOptions = launchOptions
         
         return true
     }

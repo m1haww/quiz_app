@@ -34,6 +34,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<true/>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>APP-ID</string>
 	<key>FacebookClientToken</key>
@@ -146,10 +148,22 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>su67r6k2v3.skadnetwork</string>
 		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>238da6jt44.skadnetwork</string>
-		</dict>
+	<dict>
+		<key>SKAdNetworkIdentifier</key>
+		<string>238da6jt44.skadnetwork</string>
+	</dict>
+	<dict>
+		<key>SKAdNetworkIdentifier</key>
+		<string>gta8lk7p23.skadnetwork</string>
+	</dict>
+	<dict>
+		<key>SKAdNetworkIdentifier</key>
+		<string>4fzdc2evr5.skadnetwork</string>
+	</dict>
+	<dict>
+		<key>SKAdNetworkIdentifier</key>
+		<string>4pfyvq9l8r.skadnetwork</string>
+	</dict>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
