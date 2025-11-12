@@ -81,21 +81,22 @@ final class TrackingManager {
                     // Check if this is a first install
                     if let isFirstSession = params["+is_first_session"] as? Bool, isFirstSession {
                         // Log install event for Facebook attribution
+                        // This helps Facebook and TikTok match installs with IDFA available
                         AppEvents.shared.logEvent(.achievedLevel)
-                    }
-                    
-                    // Log custom events with Branch attribution data
-                    var eventParams: [AppEvents.ParameterName: Any] = [:]
-                    
-                    if let campaign = params["~campaign"] as? String {
-                        eventParams[.contentName] = campaign
-                    }
-                    if let channel = params["~channel"] as? String {
-                        eventParams[.contentCategory] = channel
-                    }
-                    
-                    if !eventParams.isEmpty {
-                        AppEvents.shared.logEvent(.viewedContent, parameters: eventParams)
+                        
+                        // Log additional attribution data from Branch
+                        var eventParams: [AppEvents.ParameterName: Any] = [:]
+                        
+                        if let campaign = params["~campaign"] as? String {
+                            eventParams[.init("campaign")] = campaign
+                        }
+                        if let channel = params["~channel"] as? String {
+                            eventParams[.init("channel")] = channel
+                        }
+                        
+                        if !eventParams.isEmpty {
+                            AppEvents.shared.logEvent(.viewedContent, parameters: eventParams)
+                        }
                     }
                 }
             }
