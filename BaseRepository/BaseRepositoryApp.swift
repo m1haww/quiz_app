@@ -6,8 +6,15 @@
 import SwiftUI
 import PostHog
 
+extension Notification.Name {
+    static let onboardingCompleted = Notification.Name("onboardingCompleted")
+}
+
 @main
 struct BaseRepositoryApp: App {
+    @State private var hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+    @StateObject private var offerManager = OfferWebViewManager.shared
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
@@ -24,7 +31,21 @@ struct BaseRepositoryApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Text("Hello, World!")
+            if hasSeenOnboarding {
+                MainTabView()
+                    .onAppear {
+                        Task {
+                            print("🌐 BaseRepositoryApp: Starting webview resolve...")
+                            await OfferWebViewManager.shared.resolveAndOpenWebView()
+                            print("🌐 BaseRepositoryApp: Webview resolve completed")
+                        }
+                    }
+            } else {
+                OnboardingView()
+                    .onReceive(NotificationCenter.default.publisher(for: .onboardingCompleted)) { _ in
+                        hasSeenOnboarding = true
+                    }
+            }
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             switch newPhase {

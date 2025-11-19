@@ -22,11 +22,11 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.baserepository</string>
+			<string>com.test.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.baserepository</string>
-				<string>fbAPP-ID</string>
+				<string>com.test.app</string>
+				<string>fb1337845461153754</string>
 			</array>
 		</dict>
 	</array>
@@ -34,14 +34,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<true/>
+	<key>FacebookAppID</key>
+	<string>1337845461153754</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
 	<true/>
-	<key>FacebookAppID</key>
-	<string>APP-ID</string>
 	<key>FacebookClientToken</key>
-	<string>CLIENT-TOKEN</string>
+	<string>d800015eac7b0b8d348dbfb9d3550ed9</string>
 	<key>FacebookDisplayName</key>
-	<string>APP-NAME</string>
+	<string>Maza Fil Jiwar</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSUserTrackingUsageDescription</key>
@@ -52,7 +52,7 @@
 	<string>https://us.i.posthog.com</string>
 	<key>SKAdNetworkItems</key>
 	<array>
-	<dict>
+		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>v79w4chkl5.skadnetwork</string>
 		</dict>
@@ -148,22 +148,22 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>su67r6k2v3.skadnetwork</string>
 		</dict>
-	<dict>
-		<key>SKAdNetworkIdentifier</key>
-		<string>238da6jt44.skadnetwork</string>
-	</dict>
-	<dict>
-		<key>SKAdNetworkIdentifier</key>
-		<string>gta8lk7p23.skadnetwork</string>
-	</dict>
-	<dict>
-		<key>SKAdNetworkIdentifier</key>
-		<string>4fzdc2evr5.skadnetwork</string>
-	</dict>
-	<dict>
-		<key>SKAdNetworkIdentifier</key>
-		<string>4pfyvq9l8r.skadnetwork</string>
-	</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>238da6jt44.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>gta8lk7p23.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4fzdc2evr5.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4pfyvq9l8r.skadnetwork</string>
+		</dict>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -183,12 +183,12 @@
 	<key>branch_key</key>
 	<dict>
 		<key>live</key>
-		<string>YOUR_BRANCH_KEY</string>
+		<string>key_live_fxEqkxssDKqQbYb2wY8axmmgyCd11CV9</string>
 	</dict>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>YOUR_APP.app.link</string>
-		<string>YOUR_APP-alternate.app.link</string>
+		<string>kmoy6.app.link</string>
+		<string>kmoy6-alternate.app.link</string>
 	</array>
 </dict>
 </plist>

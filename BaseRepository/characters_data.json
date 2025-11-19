@@ -1,0 +1,250 @@
+{
+  "characters": [
+    {
+      "id": 1,
+      "name": "Pavel Durov",
+      "image": "Pavel Durov",
+      "completed": false,
+      "stars": 0,
+      "quiz": {
+        "questions": [
+          {
+            "question": "When was Telegram founded by Pavel Durov?",
+            "answers": ["2011", "2013", "2015", "2009"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Where was Pavel Durov born?",
+            "answers": ["Russia", "France", "USA", "Germany"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "What social platform did Pavel Durov create before Telegram?",
+            "answers": ["Odnoklassniki", "VKontakte", "MySpace", "Friendster"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Where is Telegram's main headquarters located?",
+            "answers": ["Russia", "Dubai", "Singapore", "Germany"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "What value is Pavel Durov known for promoting?",
+            "answers": ["Profit", "Privacy", "Marketing", "Expansion"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What is Pavel Durov's nickname?",
+            "answers": ["Social Media King", "Russian Zuckerberg", "Tech Guru", "Internet Inventor"],
+            "correctAnswer": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Hussain Sajwani",
+      "image": "Hussain Sajwani",
+      "completed": false,
+      "stars": 0,
+      "quiz": {
+        "questions": [
+          {
+            "question": "What real estate development group did Hussain Sajwani found?",
+            "answers": ["Emaar Properties", "DAMAC Properties", "Nakheel", "Dubai Properties"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "When was DAMAC company founded?",
+            "answers": ["2000", "2002", "1999", "2001"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What is Hussain Sajwani's nationality?",
+            "answers": ["Saudi", "Kuwaiti", "Emirati", "Qatari"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "What does DAMAC Properties specialize in?",
+            "answers": ["Shopping centers", "Luxury properties", "Offices", "Industrial development"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "In which emirate is DAMAC's main headquarters?",
+            "answers": ["Abu Dhabi", "Dubai", "Sharjah", "Ajman"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Which luxury brand has Hussain Sajwani collaborated with for real estate developments?",
+            "answers": ["Versace", "Armani", "Bulgari", "All of the above"],
+            "correctAnswer": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "M. A. Yusuff Ali",
+      "image": "M. A. Yusuff Ali",
+      "completed": true,
+      "stars": 2,
+      "quiz": {
+        "questions": [
+          {
+            "question": "What company group did M. A. Yusuff Ali found?",
+            "answers": ["LuLu Group", "Emke Group", "Al Futtaim", "Landmark Group"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Where is M. A. Yusuff Ali originally from?",
+            "answers": ["Pakistan", "Bangladesh", "India", "Sri Lanka"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "What is LuLu Group known for?",
+            "answers": ["Technology", "Retail and hypermarkets", "Oil", "Banking"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "In how many countries does LuLu Group operate?",
+            "answers": ["15", "20", "25", "22"],
+            "correctAnswer": 3
+          },
+          {
+            "question": "Where was the first LuLu hypermarket opened in the Gulf?",
+            "answers": ["Dubai", "Abu Dhabi", "Kuwait", "Qatar"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "What honorary title did M. A. Yusuff Ali receive?",
+            "answers": ["Padma Shri", "Bharat Ratna", "Padma Bhushan", "Padma Vibhushan"],
+            "correctAnswer": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Abdulla bin Ahmad Al Ghurair",
+      "image": "Abdulla bin Ahmad Al Ghurair",
+      "completed": true,
+      "stars": 3,
+      "quiz": {
+        "questions": [
+          {
+            "question": "Which bank did Abdulla Al Ghurair found?",
+            "answers": ["Emirates NBD", "Mashreq Bank", "ADCB", "FAB"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What industries is Al Ghurair Group active in?",
+            "answers": ["Food", "Banking and real estate", "Oil", "Technology"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "When was Mashreq Bank founded?",
+            "answers": ["1960", "1967", "1970", "1965"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What is Al Ghurair's estimated net worth?",
+            "answers": ["3.2 billion USD", "2.8 billion USD", "4.1 billion USD", "3.7 billion USD"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "What does Al Ghurair Foundation focus on?",
+            "answers": ["Technology", "Education", "Healthcare", "Sports"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Mashreq Bank was the first private bank in which country?",
+            "answers": ["UAE", "Kuwait", "Saudi Arabia", "Qatar"],
+            "correctAnswer": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Abdulla Al Futtaim",
+      "image": "Abdulla Al Futtaim",
+      "completed": false,
+      "stars": 0,
+      "quiz": {
+        "questions": [
+          {
+            "question": "What business group does Abdulla Al Futtaim lead?",
+            "answers": ["Al Habtoor Group", "Al Futtaim Group", "Emirates Group", "Dubai Holdings"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Where was Abdulla Al Futtaim born?",
+            "answers": ["Dubai", "Abu Dhabi", "Sharjah", "Kuwait"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "What is Al Futtaim Group primarily known for?",
+            "answers": ["Banking", "Retail and automotive", "Oil and gas", "Construction"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "When was Al Futtaim Group established?",
+            "answers": ["1930", "1935", "1940", "1945"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Which major car brand does Al Futtaim represent in the Middle East?",
+            "answers": ["BMW", "Mercedes", "Toyota", "Audi"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "What retail chain is Al Futtaim Group famous for operating?",
+            "answers": ["Carrefour", "IKEA", "H&M", "All of the above"],
+            "correctAnswer": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Majid Al Futtaim",
+      "image": "Majid Al Futtaim",
+      "completed": false,
+      "stars": 0,
+      "quiz": {
+        "questions": [
+          {
+            "question": "What company did Majid Al Futtaim found?",
+            "answers": ["Al Habtoor Group", "Majid Al Futtaim Group", "Emaar Properties", "Dubai Holding"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What is Majid Al Futtaim Group primarily known for?",
+            "answers": ["Banking", "Shopping malls and retail", "Oil and gas", "Technology"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "When was Majid Al Futtaim Group established?",
+            "answers": ["1992", "1995", "1990", "1988"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Which famous shopping mall chain does Majid Al Futtaim operate?",
+            "answers": ["Dubai Mall", "Mall of the Emirates", "Ibn Battuta Mall", "City Centre Malls"],
+            "correctAnswer": 3
+          },
+          {
+            "question": "What entertainment brand is Majid Al Futtaim known for bringing to the Middle East?",
+            "answers": ["Disney", "VOX Cinemas", "Universal", "Warner Bros"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Where was Majid Al Futtaim originally from?",
+            "answers": ["Dubai", "Abu Dhabi", "Kuwait", "Iran"],
+            "correctAnswer": 3
+          }
+        ]
+      }
+    }
+  ]
+}
