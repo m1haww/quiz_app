@@ -12,7 +12,7 @@ workflows:
       vars:
         BUNDLE_ID: "com.mazafil.jiwar"
         XCODE_WORKSPACE: "BaseRepository.xcworkspace"
-        XCODE_SCHEME: "BaseRepository"
+        XCODE_SCHEME: "Maza Fil Jiwar"
         APP_STORE_APPLE_ID: 6755478285
       xcode: latest
       cocoapods: default
