@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BEACFE6D2EA2494800514887"
-               BuildableName = "BaseRepository.app"
-               BlueprintName = "BaseRepository"
+               BuildableName = "Maza Fil Jiwar.app"
+               BlueprintName = "Maza Fil Jiwar"
                ReferencedContainer = "container:BaseRepository.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BEACFE6D2EA2494800514887"
-            BuildableName = "BaseRepository.app"
-            BlueprintName = "BaseRepository"
+            BuildableName = "Maza Fil Jiwar.app"
+            BlueprintName = "Maza Fil Jiwar"
             ReferencedContainer = "container:BaseRepository.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BEACFE6D2EA2494800514887"
-            BuildableName = "BaseRepository.app"
-            BlueprintName = "BaseRepository"
+            BuildableName = "Maza Fil Jiwar.app"
+            BlueprintName = "Maza Fil Jiwar"
             ReferencedContainer = "container:BaseRepository.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

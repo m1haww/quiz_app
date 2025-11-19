@@ -1,0 +1,6 @@
+framework module Pods_Maza_Fil_Jiwar {
+  umbrella header "Pods-Maza Fil Jiwar-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79CFA2677DDDE24D754FB96E /* Pods_Maza_Fil_Jiwar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBEB65B374BDB378E41C4DB /* Pods_Maza_Fil_Jiwar.framework */; };
 		BE52F4E52EA5685200F3081F /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = BE52F4E42EA5685200F3081F /* FacebookAEM */; };
 		BE52F4E72EA5685200F3081F /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = BE52F4E62EA5685200F3081F /* FacebookBasics */; };
 		BE52F4E92EA5685200F3081F /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = BE52F4E82EA5685200F3081F /* FacebookCore */; };
@@ -16,6 +17,9 @@
 
 /* Begin PBXFileReference section */
 		BEACFE6E2EA2494800514887 /* Maza Fil Jiwar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maza Fil Jiwar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1A008FF85DA6771CC0825AA /* Pods-Maza Fil Jiwar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Maza Fil Jiwar.debug.xcconfig"; path = "Target Support Files/Pods-Maza Fil Jiwar/Pods-Maza Fil Jiwar.debug.xcconfig"; sourceTree = "<group>"; };
+		DCBEB65B374BDB378E41C4DB /* Pods_Maza_Fil_Jiwar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Maza_Fil_Jiwar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F43D8ED05FC3778CF34A96EA /* Pods-Maza Fil Jiwar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Maza Fil Jiwar.release.xcconfig"; path = "Target Support Files/Pods-Maza Fil Jiwar/Pods-Maza Fil Jiwar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -49,17 +53,38 @@
 				BE52F5062EA686C100F3081F /* PostHog in Frameworks */,
 				BEACFE7E2EA2631000514887 /* BranchSDK in Frameworks */,
 				BE52F4E92EA5685200F3081F /* FacebookCore in Frameworks */,
+				79CFA2677DDDE24D754FB96E /* Pods_Maza_Fil_Jiwar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5BD77A3235550D4934056A96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCBEB65B374BDB378E41C4DB /* Pods_Maza_Fil_Jiwar.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C484E5C41CCE3EA3FD66251 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1A008FF85DA6771CC0825AA /* Pods-Maza Fil Jiwar.debug.xcconfig */,
+				F43D8ED05FC3778CF34A96EA /* Pods-Maza Fil Jiwar.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		BEACFE652EA2494800514887 = {
 			isa = PBXGroup;
 			children = (
 				BEACFE702EA2494800514887 /* BaseRepository */,
 				BEACFE6F2EA2494800514887 /* Products */,
+				9C484E5C41CCE3EA3FD66251 /* Pods */,
+				5BD77A3235550D4934056A96 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +103,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BEACFE792EA2494B00514887 /* Build configuration list for PBXNativeTarget "Maza Fil Jiwar" */;
 			buildPhases = (
+				D45B774E635BD76B8645E921 /* [CP] Check Pods Manifest.lock */,
 				BEACFE6A2EA2494800514887 /* Sources */,
 				BEACFE6B2EA2494800514887 /* Frameworks */,
 				BEACFE6C2EA2494800514887 /* Resources */,
@@ -149,6 +175,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D45B774E635BD76B8645E921 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Maza Fil Jiwar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BEACFE6A2EA2494800514887 /* Sources */ = {
@@ -282,6 +333,7 @@
 		};
 		BEACFE7A2EA2494B00514887 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1A008FF85DA6771CC0825AA /* Pods-Maza Fil Jiwar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -319,6 +371,7 @@
 		};
 		BEACFE7B2EA2494B00514887 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F43D8ED05FC3778CF34A96EA /* Pods-Maza Fil Jiwar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
