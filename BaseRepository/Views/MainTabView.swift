@@ -2,32 +2,60 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         ZStack {
             Color(hex: "#351162")
                 .ignoresSafeArea()
             
-            VStack(spacing: 0) {
-                // Main content area
-                Group {
-                    switch selectedTab {
-                    case 0:
-                        HomeView()
-                    case 1:
-                        StarView()
-                    case 2:
-                        ProfileView()
-                    case 3:
-                        SettingsView()
-                    default:
-                        HomeView()
+            if horizontalSizeClass == .regular {
+                // iPad layout with side navigation
+                HStack(spacing: 0) {
+                    // Side Navigation for iPad
+                    SideNavigationView(selectedTab: $selectedTab)
+                        .frame(width: 300)
+                    
+                    // Main content area
+                    Group {
+                        switch selectedTab {
+                        case 0:
+                            HomeView()
+                        case 1:
+                            StarView()
+                        case 2:
+                            ProfileView()
+                        case 3:
+                            SettingsView()
+                        default:
+                            HomeView()
+                        }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-                // Bottom Navigation
-                BottomNavigationView(selectedTab: $selectedTab)
+            } else {
+                // iPhone layout with bottom navigation
+                VStack(spacing: 0) {
+                    // Main content area
+                    Group {
+                        switch selectedTab {
+                        case 0:
+                            HomeView()
+                        case 1:
+                            StarView()
+                        case 2:
+                            ProfileView()
+                        case 3:
+                            SettingsView()
+                        default:
+                            HomeView()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    // Bottom Navigation
+                    BottomNavigationView(selectedTab: $selectedTab)
+                }
             }
         }
     }
@@ -49,6 +77,7 @@ struct ProfileView: View {
     @ObservedObject private var userService = UserService.shared
     @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var showEditProfile = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         ZStack {
@@ -66,57 +95,69 @@ struct ProfileView: View {
                 Spacer()
                 
                 // Profile Content
-                VStack(spacing: 30) {
+                VStack(spacing: horizontalSizeClass == .regular ? 40 : 30) {
                     // Avatar - using selected avatar from UserService
                     if !userService.selectedAvatar.isEmpty {
                         Image(userService.selectedAvatar)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .frame(
+                                width: horizontalSizeClass == .regular ? 200 : 150,
+                                height: horizontalSizeClass == .regular ? 200 : 150
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: horizontalSizeClass == .regular ? 35 : 25))
                             
                          
                         
                     } else {
                         // Default avatar if none selected
-                        RoundedRectangle(cornerRadius: 25)
+                        RoundedRectangle(cornerRadius: horizontalSizeClass == .regular ? 35 : 25)
                             .fill(Color.gray.opacity(0.5))
-                            .frame(width: 150, height: 150)
+                            .frame(
+                                width: horizontalSizeClass == .regular ? 200 : 150,
+                                height: horizontalSizeClass == .regular ? 200 : 150
+                            )
                             .overlay(
                                 Image(systemName: "person.fill")
                                     .foregroundColor(.white.opacity(0.7))
-                                    .font(.system(size: 60))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 80 : 60))
                             )
                             .overlay(
-                                RoundedRectangle(cornerRadius: 25)
+                                RoundedRectangle(cornerRadius: horizontalSizeClass == .regular ? 35 : 25)
                                     .stroke(
                                         LinearGradient(
                                             colors: [Color.orange, Color.yellow],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         ),
-                                        lineWidth: 4
+                                        lineWidth: horizontalSizeClass == .regular ? 6 : 4
                                     )
                             )
                     }
                     
                     // Username - using username from UserService
                     Text(userService.username.isEmpty ? localizationManager.localizedString("no_nickname_set") : userService.username)
-                        .font(.system(size: 32, weight: .bold))
+                        .font(.system(
+                            size: horizontalSizeClass == .regular ? 40 : 32,
+                            weight: .bold
+                        ))
                         .foregroundColor(.white)
                     
                     // Stars count - using real stars from UserService
                     HStack(spacing: 10) {
                         Image(systemName: "star.fill")
                             .foregroundColor(Color(hex: "#D29B43"))
-                            .font(.system(size: 20))
+                            .font(.system(size: horizontalSizeClass == .regular ? 24 : 20))
                         
                         Text("\(userService.totalStars) \(localizationManager.localizedString("stars"))")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(
+                                size: horizontalSizeClass == .regular ? 22 : 18,
+                                weight: .semibold
+                            ))
                             .foregroundColor(.white)
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, horizontalSizeClass == .regular ? 32 : 24)
+                    .padding(.vertical, horizontalSizeClass == .regular ? 16 : 12)
                     .background(
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.black.opacity(0.3))
@@ -135,17 +176,20 @@ struct ProfileView: View {
                     showEditProfile = true
                 }) {
                     Text(localizationManager.localizedString("edit"))
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(
+                            size: horizontalSizeClass == .regular ? 20 : 18,
+                            weight: .semibold
+                        ))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
+                        .frame(maxWidth: horizontalSizeClass == .regular ? 400 : .infinity)
+                        .frame(height: horizontalSizeClass == .regular ? 64 : 56)
                         .background(Color.clear)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 28)
+                            RoundedRectangle(cornerRadius: horizontalSizeClass == .regular ? 32 : 28)
                                 .stroke(Color(hex: "#7328CF"), lineWidth: 2)
                         )
                 }
-                .padding(.horizontal, 40)
+                .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                 .padding(.bottom, 20)
             }
         }
@@ -159,6 +203,7 @@ struct SettingsView: View {
     @ObservedObject private var localizationManager = LocalizationManager.shared
     @ObservedObject private var userService = UserService.shared
     @State private var showResetAlert = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         ZStack {
@@ -174,11 +219,14 @@ struct SettingsView: View {
                     .padding(.top, 20)
                     .padding(.bottom, 50)
                 
-                VStack(spacing: 30) {
+                VStack(spacing: horizontalSizeClass == .regular ? 40 : 30) {
                     // Language Section
                     HStack {
                         Text(localizationManager.localizedString("language"))
-                            .font(.system(size: 18, weight: .medium))
+                            .font(.system(
+                                size: horizontalSizeClass == .regular ? 22 : 18,
+                                weight: .medium
+                            ))
                             .foregroundColor(.white)
                         
                         Spacer()
@@ -189,10 +237,13 @@ struct SettingsView: View {
                                 localizationManager.currentLanguage = "English"
                             }) {
                                 Text(localizationManager.localizedString("english"))
-                                    .font(.system(size: 16, weight: .medium))
+                                    .font(.system(
+                                        size: horizontalSizeClass == .regular ? 18 : 16,
+                                        weight: .medium
+                                    ))
                                     .foregroundColor(.white)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, horizontalSizeClass == .regular ? 24 : 20)
+                                    .padding(.vertical, horizontalSizeClass == .regular ? 12 : 10)
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(localizationManager.currentLanguage == "English" ? Color(hex: "#7328CF") : Color.clear)
@@ -205,10 +256,13 @@ struct SettingsView: View {
                                 localizationManager.currentLanguage = "Arabic"
                             }) {
                                 Text(localizationManager.localizedString("arabic"))
-                                    .font(.system(size: 16, weight: .medium))
+                                    .font(.system(
+                                        size: horizontalSizeClass == .regular ? 18 : 16,
+                                        weight: .medium
+                                    ))
                                     .foregroundColor(localizationManager.currentLanguage == "Arabic" ? .white : .white.opacity(0.6))
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, horizontalSizeClass == .regular ? 24 : 20)
+                                    .padding(.vertical, horizontalSizeClass == .regular ? 12 : 10)
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(localizationManager.currentLanguage == "Arabic" ? Color(hex: "#7328CF") : Color.clear)
@@ -221,52 +275,99 @@ struct SettingsView: View {
                                 .stroke(Color(hex: "#7328CF"), lineWidth: 3)
                         )
                     }
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, horizontalSizeClass == .regular ? 60 : 40)
                     
                     // Action Buttons Section
-                    VStack(spacing: 15) {
-                        HStack(spacing: 15) {
-                            // Privacy Policy Button
-                            Button(action: {
-                                if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/privacy-policy") {
-                                    UIApplication.shared.open(url)
-                                    print("🔗 SettingsView: Opening Privacy Policy URL")
+                    VStack(spacing: horizontalSizeClass == .regular ? 20 : 15) {
+                        if horizontalSizeClass == .regular {
+                            // iPad layout - single row with more space
+                            HStack(spacing: 30) {
+                                // Privacy Policy Button
+                                Button(action: {
+                                    if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/privacy-policy") {
+                                        UIApplication.shared.open(url)
+                                        print("🔗 SettingsView: Opening Privacy Policy URL")
+                                    }
+                                }) {
+                                    Text(localizationManager.localizedString("privacy_policy"))
+                                        .font(.system(size: 18, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 18)
+                                        .background(Color.clear)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 25)
+                                                .stroke(Color(hex: "#7328CF"), lineWidth: 3)
+                                        )
                                 }
-                            }) {
-                                Text(localizationManager.localizedString("privacy_policy"))
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.clear)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .stroke(Color(hex: "#7328CF"), lineWidth: 3)
-                                    )
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            // Contact Us Button
-                            Button(action: {
-                                if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/feedback-form") {
-                                    UIApplication.shared.open(url)
-                                    print("🔗 SettingsView: Opening Contact Us URL")
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                // Contact Us Button
+                                Button(action: {
+                                    if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/feedback-form") {
+                                        UIApplication.shared.open(url)
+                                        print("🔗 SettingsView: Opening Contact Us URL")
+                                    }
+                                }) {
+                                    Text(localizationManager.localizedString("contact_us"))
+                                        .font(.system(size: 18, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 18)
+                                        .background(Color.clear)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 25)
+                                                .stroke(Color(hex: "#7328CF"), lineWidth: 3)
+                                        )
                                 }
-                            }) {
-                                Text(localizationManager.localizedString("contact_us"))
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 15)
-                                    .background(Color.clear)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .stroke(Color(hex: "#7328CF"), lineWidth: 3)
-                                    )
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal, 80)
+                        } else {
+                            // iPhone layout - keep existing
+                            HStack(spacing: 15) {
+                                // Privacy Policy Button
+                                Button(action: {
+                                    if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/privacy-policy") {
+                                        UIApplication.shared.open(url)
+                                        print("🔗 SettingsView: Opening Privacy Policy URL")
+                                    }
+                                }) {
+                                    Text(localizationManager.localizedString("privacy_policy"))
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 15)
+                                        .background(Color.clear)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 25)
+                                                .stroke(Color(hex: "#7328CF"), lineWidth: 3)
+                                        )
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                // Contact Us Button
+                                Button(action: {
+                                    if let url = URL(string: "https://v0-next-js-shadcn-ui-app-jade.vercel.app/feedback-form") {
+                                        UIApplication.shared.open(url)
+                                        print("🔗 SettingsView: Opening Contact Us URL")
+                                    }
+                                }) {
+                                    Text(localizationManager.localizedString("contact_us"))
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 15)
+                                        .background(Color.clear)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 25)
+                                                .stroke(Color(hex: "#7328CF"), lineWidth: 3)
+                                        )
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                            .padding(.horizontal, 40)
                         }
-                        .padding(.horizontal, 40)
                     }
                 }
                 
@@ -278,10 +379,13 @@ struct SettingsView: View {
                     showResetAlert = true
                 }) {
                     Text(localizationManager.localizedString("reset_progress"))
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(
+                            size: horizontalSizeClass == .regular ? 20 : 18,
+                            weight: .semibold
+                        ))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
+                        .frame(maxWidth: horizontalSizeClass == .regular ? 400 : .infinity)
+                        .frame(height: horizontalSizeClass == .regular ? 64 : 56)
                         .background(
                             LinearGradient(
                                 colors: [Color.red, Color.red.opacity(0.8)],
@@ -289,9 +393,9 @@ struct SettingsView: View {
                                 endPoint: .trailing
                             )
                         )
-                        .cornerRadius(28)
+                        .cornerRadius(horizontalSizeClass == .regular ? 32 : 28)
                 }
-                .padding(.horizontal, 40)
+                .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                 .padding(.bottom, 20) // Increased bottom padding
             }
         }
@@ -318,11 +422,26 @@ struct EditProfileSheet: View {
     
     let avatars = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var columns: [GridItem] {
+        if horizontalSizeClass == .regular {
+            // iPad - 4 columns
+            return [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+        } else {
+            // iPhone - 3 columns
+            return [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -462,6 +581,98 @@ struct EditAvatarOption: View {
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct SideNavigationView: View {
+    @Binding var selectedTab: Int
+    
+    var body: some View {
+        VStack(spacing: 30) {
+            // App logo/title area
+            VStack(spacing: 10) {
+                Text("Maza Fil Jiwar")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+            }
+            .padding(.top, 50)
+            
+            Spacer()
+            
+            // Navigation buttons
+            VStack(spacing: 20) {
+                SideNavigationButton(
+                    icon: "home",
+                    label: "Home",
+                    isSelected: selectedTab == 0,
+                    action: { selectedTab = 0 }
+                )
+                
+                SideNavigationButton(
+                    icon: "star",
+                    label: "Leaderboard",
+                    isSelected: selectedTab == 1,
+                    action: { selectedTab = 1 }
+                )
+                
+                SideNavigationButton(
+                    icon: "profile",
+                    label: "Profile",
+                    isSelected: selectedTab == 2,
+                    action: { selectedTab = 2 }
+                )
+                
+                SideNavigationButton(
+                    icon: "settings",
+                    label: "Settings",
+                    isSelected: selectedTab == 3,
+                    action: { selectedTab = 3 }
+                )
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .background(
+            Rectangle()
+                .fill(Color(hex: "#7328CF"))
+        )
+    }
+}
+
+struct SideNavigationButton: View {
+    let icon: String
+    let label: String
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 15) {
+                Image(icon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.white)
+                    .opacity(isSelected ? 1.0 : 0.6)
+                
+                Text(label)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.white)
+                    .opacity(isSelected ? 1.0 : 0.6)
+                
+                Spacer()
+            }
+            .padding(.horizontal, 25)
+            .padding(.vertical, 15)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(isSelected ? Color.black.opacity(0.2) : Color.clear)
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+        .padding(.horizontal, 20)
     }
 }
 

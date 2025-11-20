@@ -268,6 +268,7 @@ struct QuizResultView: View {
     let onMainScreen: (() -> Void)?
     
     @State private var showNextQuiz = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var percentage: Int {
         Int((Double(score) / Double(totalQuestions)) * 100)
@@ -289,100 +290,114 @@ struct QuizResultView: View {
             Color(hex: "#351162")
                 .ignoresSafeArea()
             
-            VStack(spacing: 50) {
-                Spacer()
-                
-                // Stars display
-                VStack(spacing: 40) {
-                    // Top star - always show at least one star
-                    Image(systemName: "star.fill")
-                        .foregroundColor(Color(hex: "#D29B43"))
-                        .font(.system(size: 120))
+            ScrollView {
+                VStack(spacing: horizontalSizeClass == .regular ? 60 : 50) {
+                    Spacer()
+                        .frame(height: horizontalSizeClass == .regular ? 80 : 60)
                     
-                    // Bottom two stars
-                    HStack(spacing: 80) {
-                        if stars >= 2 {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(Color(hex: "#D29B43"))
-                                .font(.system(size: 100))
-                        } else {
-                            Image(systemName: "star")
-                                .foregroundColor(Color.gray.opacity(0.3))
-                                .font(.system(size: 100))
-                        }
+                    // Stars display
+                    VStack(spacing: horizontalSizeClass == .regular ? 50 : 40) {
+                        // Top star - always show at least one star
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color(hex: "#D29B43"))
+                            .font(.system(size: horizontalSizeClass == .regular ? 150 : 120))
                         
-                        if stars >= 3 {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(Color(hex: "#D29B43"))
-                                .font(.system(size: 100))
-                        } else {
-                            Image(systemName: "star")
-                                .foregroundColor(Color.gray.opacity(0.3))
-                                .font(.system(size: 100))
+                        // Bottom two stars
+                        HStack(spacing: horizontalSizeClass == .regular ? 100 : 80) {
+                            if stars >= 2 {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(Color(hex: "#D29B43"))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 125 : 100))
+                            } else {
+                                Image(systemName: "star")
+                                    .foregroundColor(Color.gray.opacity(0.3))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 125 : 100))
+                            }
+                            
+                            if stars >= 3 {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(Color(hex: "#D29B43"))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 125 : 100))
+                            } else {
+                                Image(systemName: "star")
+                                    .foregroundColor(Color.gray.opacity(0.3))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 125 : 100))
+                            }
                         }
                     }
-                }
-                
-                Spacer()
-                
-                // Congratulations text
-                Text("Now we sure that you know \(characterName) better than anyone!")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 40)
-                
-                Spacer()
-                
-                // Buttons
-                VStack(spacing: 20) {
-                    Button(action: {
-                        if let nextCharacter = getNextCharacter() {
-                            showNextQuiz = true
-                            print("🔄 QuizResultView: Moving to next quiz for character: \(nextCharacter.name)")
-                        } else {
-                            // No more characters, go to main screen
-                            print("🏁 QuizResultView: No more characters, going to main screen")
+                    
+                    Spacer()
+                        .frame(height: horizontalSizeClass == .regular ? 80 : 60)
+                    
+                    // Congratulations text
+                    Text("Now we sure that you know \(characterName) better than anyone!")
+                        .font(.system(
+                            size: horizontalSizeClass == .regular ? 28 : 24, 
+                            weight: .bold
+                        ))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 60 : 40)
+                    
+                    Spacer()
+                        .frame(height: horizontalSizeClass == .regular ? 80 : 60)
+                    
+                    // Buttons
+                    VStack(spacing: horizontalSizeClass == .regular ? 25 : 20) {
+                        Button(action: {
+                            if let nextCharacter = getNextCharacter() {
+                                showNextQuiz = true
+                                print("🔄 QuizResultView: Moving to next quiz for character: \(nextCharacter.name)")
+                            } else {
+                                // No more characters, go to main screen
+                                print("🏁 QuizResultView: No more characters, going to main screen")
+                                if let onMainScreen = onMainScreen {
+                                    onMainScreen()
+                                } else {
+                                    onDismiss()
+                                }
+                            }
+                        }) {
+                            Text("Next Quiz")
+                                .font(.system(
+                                    size: horizontalSizeClass == .regular ? 20 : 18, 
+                                    weight: .semibold
+                                ))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: horizontalSizeClass == .regular ? 400 : .infinity)
+                                .frame(height: horizontalSizeClass == .regular ? 64 : 56)
+                                .background(Color(hex: "#D29B43"))
+                                .cornerRadius(horizontalSizeClass == .regular ? 32 : 28)
+                        }
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
+                        
+                        Button(action: {
                             if let onMainScreen = onMainScreen {
                                 onMainScreen()
                             } else {
                                 onDismiss()
                             }
+                        }) {
+                            Text("Main Screen")
+                                .font(.system(
+                                    size: horizontalSizeClass == .regular ? 20 : 18, 
+                                    weight: .semibold
+                                ))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: horizontalSizeClass == .regular ? 400 : .infinity)
+                                .frame(height: horizontalSizeClass == .regular ? 64 : 56)
+                                .background(Color.clear)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: horizontalSizeClass == .regular ? 32 : 28)
+                                        .stroke(Color(hex: "#7328CF"), lineWidth: 2)
+                                )
                         }
-                    }) {
-                        Text("Next Quiz")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(Color(hex: "#D29B43"))
-                            .cornerRadius(28)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                     }
-                    .padding(.horizontal, 40)
-                    
-                    Button(action: {
-                        if let onMainScreen = onMainScreen {
-                            onMainScreen()
-                        } else {
-                            onDismiss()
-                        }
-                    }) {
-                        Text("Main Screen")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(Color.clear)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 28)
-                                    .stroke(Color(hex: "#7328CF"), lineWidth: 2)
-                            )
-                    }
-                    .padding(.horizontal, 40)
+                    .padding(.bottom, horizontalSizeClass == .regular ? 80 : 60)
                 }
-                .padding(.bottom, 60)
             }
         }
         .fullScreenCover(isPresented: $showNextQuiz) {

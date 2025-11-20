@@ -12,6 +12,7 @@ struct NicknameView: View {
     @State private var showError: Bool = false
     @State private var showAvatarView = false
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject private var userService = UserService.shared
     @ObservedObject private var localizationManager = LocalizationManager.shared
     
@@ -24,29 +25,32 @@ struct NicknameView: View {
                 
                 VStack(spacing: 0) {
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: horizontalSizeClass == .regular ? 80 : 40)
                     
-                    VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: horizontalSizeClass == .regular ? 25 : 15) {
                         // Enter nickname text
                         HStack {
                             Text(localizationManager.localizedString("enter_your_nickname"))
-                                .font(.system(size: 17, weight: .medium))
+                                .font(.system(
+                                    size: horizontalSizeClass == .regular ? 22 : 17, 
+                                    weight: .medium
+                                ))
                                 .foregroundColor(.white)
                             Spacer()
                         }
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                         
                         // Nickname input field
                         TextField("", text: $nickname)
                             .placeholder(when: nickname.isEmpty) {
                                 Text(localizationManager.localizedString("nickname"))
                                     .foregroundColor(.white.opacity(0.6))
-                                    .font(.system(size: 20))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 24 : 20))
                             }
-                            .font(.system(size: 18))
+                            .font(.system(size: horizontalSizeClass == .regular ? 22 : 18))
                             .foregroundColor(.white)
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 20)
+                            .padding(.horizontal, horizontalSizeClass == .regular ? 32 : 24)
+                            .padding(.vertical, horizontalSizeClass == .regular ? 28 : 20)
                             .background(
                                 RoundedRectangle(cornerRadius: 49)
                                     .stroke(showError ? Color.red : Color.white.opacity(0.4), lineWidth: 1)
@@ -55,7 +59,7 @@ struct NicknameView: View {
                                             .fill(Color.clear)
                                     )
                             )
-                            .padding(.horizontal, 40)
+                            .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                             .onChange(of: nickname) { _ in
                                 if showError {
                                     showError = false
@@ -66,11 +70,11 @@ struct NicknameView: View {
                         if showError {
                             HStack {
                                 Text(localizationManager.localizedString("please_enter_nickname"))
-                                    .font(.system(size: 14))
+                                    .font(.system(size: horizontalSizeClass == .regular ? 18 : 14))
                                     .foregroundColor(.red)
                                 Spacer()
                             }
-                            .padding(.horizontal, 40)
+                            .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                         }
                     }
                     
@@ -89,15 +93,18 @@ struct NicknameView: View {
                         }
                     }) {
                         Text(localizationManager.localizedString("continue"))
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(
+                                size: horizontalSizeClass == .regular ? 22 : 18, 
+                                weight: .semibold
+                            ))
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(maxWidth: horizontalSizeClass == .regular ? 500 : .infinity)
+                            .frame(height: horizontalSizeClass == .regular ? 68 : 56)
                             .background(Color(hex: "#7328CF"))
-                            .cornerRadius(28)
+                            .cornerRadius(horizontalSizeClass == .regular ? 34 : 28)
                     }
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 60)
+                    .padding(.horizontal, horizontalSizeClass == .regular ? 100 : 40)
+                    .padding(.bottom, horizontalSizeClass == .regular ? 80 : 60)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

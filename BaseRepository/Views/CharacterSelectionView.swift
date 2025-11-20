@@ -4,11 +4,24 @@ struct CharacterSelectionView: View {
     @StateObject private var dataManager = CharacterDataManager()
     @State private var selectedCharacter: Character? = nil
     @ObservedObject private var localizationManager = LocalizationManager.shared
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    var columns: [GridItem] {
+        if horizontalSizeClass == .regular {
+            // iPad - 3 columns for better use of space
+            return [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+        } else {
+            // iPhone - 2 columns
+            return [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -34,9 +47,9 @@ struct CharacterSelectionView: View {
                                 .buttonStyle(PlainButtonStyle())
                             }
                         }
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 40 : 20)
                         
-                        Spacer(minLength: 100)
+                        Spacer(minLength: horizontalSizeClass == .regular ? 40 : 100)
                     }
                 }
             }

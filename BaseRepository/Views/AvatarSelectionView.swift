@@ -12,6 +12,7 @@ struct AvatarSelectionView: View {
     @State private var showMainTabView = false
     @State private var showError = false
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ObservedObject private var userService = UserService.shared
     
     let avatarImages = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -25,20 +26,23 @@ struct AvatarSelectionView: View {
                 
                 VStack(spacing: 0) {
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: horizontalSizeClass == .regular ? 80 : 40)
                     
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading, spacing: horizontalSizeClass == .regular ? 40 : 30) {
                         // Choose your avatar text
                         HStack {
                             Text("Choose your avatar")
-                                .font(.system(size: 17, weight: .medium))
+                                .font(.system(
+                                    size: horizontalSizeClass == .regular ? 22 : 17, 
+                                    weight: .medium
+                                ))
                                 .foregroundColor(.white)
                             Spacer()
                         }
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                         
                         // Avatar grid
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 3), spacing: 20) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: horizontalSizeClass == .regular ? 30 : 20), count: horizontalSizeClass == .regular ? 4 : 3), spacing: horizontalSizeClass == .regular ? 30 : 20) {
                             ForEach(0..<avatarImages.count, id: \.self) { index in
                                 Button(action: {
                                     selectedAvatarIndex = index
@@ -48,7 +52,10 @@ struct AvatarSelectionView: View {
                                         Image(avatarImages[index])
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 80, height: 80)
+                                            .frame(
+                                                width: horizontalSizeClass == .regular ? 100 : 80, 
+                                                height: horizontalSizeClass == .regular ? 100 : 80
+                                            )
                                             .clipShape(Circle())
                                         
                                         // Border
@@ -56,9 +63,12 @@ struct AvatarSelectionView: View {
                                             .stroke(
                                                 selectedAvatarIndex == index ? 
                                                 Color(hex: "#7328CF") : Color(hex: "#FFD700"),
-                                                lineWidth: 3
+                                                lineWidth: horizontalSizeClass == .regular ? 4 : 3
                                             )
-                                            .frame(width: 86, height: 86)
+                                            .frame(
+                                                width: horizontalSizeClass == .regular ? 108 : 86, 
+                                                height: horizontalSizeClass == .regular ? 108 : 86
+                                            )
                                         
                                         // Icon for selected avatar
                                         if selectedAvatarIndex == index {
@@ -68,29 +78,38 @@ struct AvatarSelectionView: View {
                                                     Spacer()
                                                     Image("icon")
                                                         .resizable()
-                                                        .frame(width: 24, height: 24)
-                                                        .offset(x: 8, y: 8)
+                                                        .frame(
+                                                            width: horizontalSizeClass == .regular ? 30 : 24, 
+                                                            height: horizontalSizeClass == .regular ? 30 : 24
+                                                        )
+                                                        .offset(
+                                                            x: horizontalSizeClass == .regular ? 10 : 8, 
+                                                            y: horizontalSizeClass == .regular ? 10 : 8
+                                                        )
                                                 }
                                             }
-                                            .frame(width: 80, height: 80)
+                                            .frame(
+                                                width: horizontalSizeClass == .regular ? 100 : 80, 
+                                                height: horizontalSizeClass == .regular ? 100 : 80
+                                            )
                                         }
                                     }
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }
                         }
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                     }
                     
                     // Error message
                     if showError && selectedAvatarIndex == nil {
                         HStack {
                             Text("Please select an avatar to continue")
-                                .font(.system(size: 14))
+                                .font(.system(size: horizontalSizeClass == .regular ? 18 : 14))
                                 .foregroundColor(.red)
                             Spacer()
                         }
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalSizeClass == .regular ? 80 : 40)
                     }
                     
                     Spacer()
@@ -119,19 +138,22 @@ struct AvatarSelectionView: View {
                         }
                     }) {
                         Text("Continue")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(
+                                size: horizontalSizeClass == .regular ? 22 : 18, 
+                                weight: .semibold
+                            ))
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
+                            .frame(maxWidth: horizontalSizeClass == .regular ? 500 : .infinity)
+                            .frame(height: horizontalSizeClass == .regular ? 68 : 56)
                             .background(
                                 showError && selectedAvatarIndex == nil 
                                 ? Color.red 
                                 : Color(hex: "#7328CF")
                             )
-                            .cornerRadius(28)
+                            .cornerRadius(horizontalSizeClass == .regular ? 34 : 28)
                     }
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 60)
+                    .padding(.horizontal, horizontalSizeClass == .regular ? 100 : 40)
+                    .padding(.bottom, horizontalSizeClass == .regular ? 80 : 60)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

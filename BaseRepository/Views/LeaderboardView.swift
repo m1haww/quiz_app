@@ -4,6 +4,7 @@ struct LeaderboardView: View {
     @State private var leaderboardData: [LeaderboardEntry] = []
     @ObservedObject private var userService = UserService.shared
     @ObservedObject private var localizationManager = LocalizationManager.shared
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         ZStack {
@@ -36,7 +37,7 @@ struct LeaderboardView: View {
                             .fill(Color.white.opacity(0.1))
                     )
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 120) // Space for bottom navigation
+                    .padding(.bottom, horizontalSizeClass == .regular ? 20 : 120) // Space for bottom navigation only on iPhone
                 }
             }
         }
